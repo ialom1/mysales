@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{> bootstrap}}
+    <link rel="stylesheet" href="/css/style.css">
+    <title>shop-mysales</title>
+</head>
+
+<body>
+    {{> shop_nav}}
+    <div class="base">
+        <div class="row">
+            <div class="col-md-8 border-right">
+                <div class="">
+                    <div class="row">
+                        {{#each products1}}
+                        <div class="col-sm-3">
+                            {{> items}}
+                        </div>
+                        {{else}}
+                        <p class="empty">No content</p>
+                        {{/each}}
+                    </div>
+                    <br>
+                    <div class="row">
+                        {{#each products2}}
+                        <div class="col-sm-3">
+                            {{> items}}
+                        </div>
+                        {{else}}
+                        <p class="empty">No content</p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    {{> cart}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/shopApp.js"></script>
+</body>
+
+</html>

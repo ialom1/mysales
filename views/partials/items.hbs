@@ -1,0 +1,21 @@
+<div class="card item-card">
+    <img class="card-img-top mx-auto d-block item-img" src={{this.img}} alt="Card image cap" />
+    <div class="card-body">
+        <h5 class="card-title">{{this.name}}</h5>
+        <p class="card-text">{{this.price}}</p>
+        <form id="item_form">
+            <div class="form-row">
+                <input type="hidden" name="pId" value={{this.id}} />
+                <input type="hidden" name="pName" value={{this.name}} />
+                <input type="hidden" name="pPrice" value={{this.price}} />
+                <div class="col">
+                    <input type="text" name="pQty" class="form-control form-control-sm" placeholder="Quantity"
+                        value="1" />
+                </div>
+                <div class="col">
+                    <input type="submit" class="form-control form-control-sm btn-info" value="Add" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

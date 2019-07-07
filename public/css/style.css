@@ -1,0 +1,52 @@
+.base {
+    max-width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.profile-bg {
+    position: relative;
+    height: 80px;
+}
+
+.profile-img {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.profile-name {
+    margin-left: 80px;
+}
+
+.products-img {
+    width: 200px;
+    height: 200px;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+    width: 200px;
+}
+
+.acc-img {
+  width: 80px;
+  border: none;
+}
+
+.acc-text {
+    margin-left: 10px;
+}
+
+.item-card {
+    width: 200px;
+}
+
+.item-img {
+    width: 180px;
+    height: 180px;
+}
