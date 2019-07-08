@@ -94,7 +94,7 @@ function getUserInfo() {
         if (e.target.readyState === 4 && e.target.status === 200) {
             const data = JSON.parse(e.target.responseText)
             $('#userName').text(data.email)
-            
+
             const request = new XMLHttpRequest()
             request.addEventListener('readystatechange', (e) => {
                 if (e.target.readyState === 4 && e.target.status === 200) {
@@ -155,9 +155,11 @@ function clearCart() {
                 promises2.push(updateProducts(item))
             })
             Promise.all(promises).then(() => {
-                resolve(
-                    Promise.all(promises2)
-                )
+                setTimeout(() => {
+                    resolve(
+                        Promise.all(promises2)
+                    )
+                }, 3000)
             })
 
         })
@@ -171,9 +173,11 @@ function checkStock() {
             items.forEach(item => {
                 promises.push(checkProducts(item))
             })
-            resolve(
-                Promise.all(promises)
-            )
+            setTimeout(() => {
+                resolve(
+                    Promise.all(promises)
+                )
+            }, 3000)
         })
     })
 }
@@ -229,7 +233,11 @@ function makePayment(formData) {
                     alert('Incorrect account credentials')
                     reject()
                 }
-                else resolve()
+                else {
+                    setTimeout(() => {
+                        resolve()
+                    }, 3000)
+                }
             } else if (e.target.readyState === 4) {
                 console.log('An error has taken place')
             }
@@ -240,12 +248,13 @@ function makePayment(formData) {
 }
 
 $('#exampleModalCenter').on('shown.bs.modal', function () {
+    $("#progressDiv").hide()
     $('#acFrom').trigger('focus')
     $('#amt').val(total)
 })
 $('#paymentForm').submit((e) => {
     e.preventDefault()
-
+    $("#progressDiv").show()
     let formData = new FormData()
     formData.append('acFrom', e.target.elements.acFrom.value)
     formData.append('acTo', e.target.elements.acTo.value)
@@ -253,12 +262,18 @@ $('#paymentForm').submit((e) => {
     formData.append('acPin', e.target.elements.acPin.value)
     formData.append('txnRef', Math.floor(Math.random() * 10000) * 9999)
 
+    $('#progBar').text('Stock Check')
+    $('#progBar').css('width', 20 + '%').attr('aria-valuenow', 20);
     console.log('Check Stock');
     checkStock()
         .then(() => {
+            $('#progBar').text('User Payment')
+            $('#progBar').css('width', 40 + '%').attr('aria-valuenow', 40);
             console.log('User Payment')
             makePayment(formData)
                 .then(() => {
+                    $('#progBar').text('Placing Order')
+                    $('#progBar').css('width', 60 + '%').attr('aria-valuenow', 60);
                     console.log('clear Cart and Update stock');
                     clearCart()
                         .then((cpList) => {
@@ -273,12 +288,19 @@ $('#paymentForm').submit((e) => {
                             formData2.append('acPin', '12345')
                             formData2.append('txnRef', Math.floor(Math.random() * 10000) * 9999)
                             cp = 0;
+                            $('#progBar').text('Confirming Order')
+                            $('#progBar').css('width', 80 + '%').attr('aria-valuenow', 80);
                             console.log('mySales Payment')
                             makePayment(formData2)
+                            $('#progBar').text('Shipping')
+                            $('#progBar').css('width', 100 + '%').attr('aria-valuenow', 100);
+                            setTimeout(() => {
+                                $("#exampleModalCenter .close").click()
+                            }, 3000)
                         })
                 })
         }).catch((e) => {
             console.log('Error');
+            $("#exampleModalCenter .close").click()
         })
-    $("#exampleModalCenter .close").click()
 })
