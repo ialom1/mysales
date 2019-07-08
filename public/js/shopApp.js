@@ -100,6 +100,7 @@ function getUserInfo() {
                 if (e.target.readyState === 4 && e.target.status === 200) {
                     const data = JSON.parse(e.target.responseText)
                     $('#accBalance').text(data.records[0].acc_bal)
+                    $('#acFrom').val(data.records[0].acc_num)
 
                 } else if (e.target.readyState === 4) {
                     reject('An error has taken place')
@@ -249,7 +250,7 @@ function makePayment(formData) {
 
 $('#exampleModalCenter').on('shown.bs.modal', function () {
     $("#progressDiv").hide()
-    $('#acFrom').trigger('focus')
+    $('#acPin').trigger('focus')
     $('#amt').val(total)
 })
 $('#paymentForm').submit((e) => {
